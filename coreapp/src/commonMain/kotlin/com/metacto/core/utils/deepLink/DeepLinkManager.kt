@@ -13,9 +13,7 @@ internal class DeepLinkManager(
     private val deepLinksFlow = MutableSharedFlow<DeepLink>(replay = 1)
 
     override fun emitDynamicLink(link: String) {
-        DynamicLinkProcessor.process(link) {
-            validAndParseDeepLink(it)
-        }
+        validAndParseDeepLink(link)
     }
 
     override fun emitDeepLink(link: String) {

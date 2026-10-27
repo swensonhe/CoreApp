@@ -61,10 +61,6 @@ kotlin {
             linkOnly = true
         )
         pod(
-            name = Dependencies.Pods.FIREBASE_DYNAMIC_LINKS,
-            linkOnly = true
-        )
-        pod(
             name = Dependencies.Pods.FIREBASE_CRASHLYTICS,
             linkOnly = true
         )

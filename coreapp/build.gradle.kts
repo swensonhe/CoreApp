@@ -99,7 +99,6 @@ kotlin {
 
                 // Firebase
                 api(project.dependencies.platform(Dependencies.Firebase.BOM))
-                api(Dependencies.Firebase.DYNAMIC_LINKS)
                 api(Dependencies.Firebase.CRASHLYTICS)
                 api(Dependencies.Firebase.ANALYTICS)
                 api(Dependencies.Firebase.MESSAGING)

@@ -3,7 +3,6 @@ object Dependencies {
         const val FIREBASE_AUTH = "FirebaseAuth"
         const val FIREBASE_ANALYTICS = "FirebaseAnalytics"
         const val GOOGLE_SIGN_IN = "GoogleSignIn"
-        const val FIREBASE_DYNAMIC_LINKS = "FirebaseDynamicLinks"
         const val FIREBASE_CRASHLYTICS = "FirebaseCrashlytics"
         const val FIREBASE_REMOTE_CONFIG = "FirebaseRemoteConfig"
         const val FIREBASE_MESSAGING = "FirebaseMessaging"
@@ -62,7 +61,6 @@ object Dependencies {
 
     object Firebase {
         const val BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE}"
-        const val DYNAMIC_LINKS = "com.google.firebase:firebase-dynamic-links-ktx"
         const val CRASHLYTICS = "com.google.firebase:firebase-crashlytics"
         const val ANALYTICS = "com.google.firebase:firebase-analytics"
         const val MESSAGING = "com.google.firebase:firebase-messaging-ktx"
