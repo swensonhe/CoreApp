@@ -8,7 +8,7 @@ object Versions {
     const val SWIFT_KLIB = "0.6.4"
     const val GOOGLE_SIGN_IN_POD = "7.0.0"
     const val DATE_TIME = "0.7.1"
-    const val STRAPI_KMM = "11.0.1"
+    const val STRAPI_KMM = "11.0.64"
     const val KOIN = "4.2.2"
     const val KOIN_COMPOSE = "4.2.2"
     const val VOYAGER = "1.1.0-beta02"
