@@ -4,7 +4,6 @@ import org.gradle.kotlin.dsl.maven
 fun RepositoryHandler.addProjectRepos() {
     gradlePluginPortal()
     google()
-    jcenter()
     mavenCentral()
     mavenLocal()
     maven("https://jitpack.io")
@@ -20,10 +19,5 @@ fun RepositoryHandler.addProjectRepos() {
             password = Configs.SH_PASSWORD
         }
     }
-    maven("https://maven.pkg.github.com/Meta-CTO/strapi-kmm") {
-        credentials {
-            username = Configs.META_CTO_USERNAME
-            password = Configs.META_CTO_PASSWORD
-        }
-    }
+    maven("https://raw.githubusercontent.com/swensonhe/strapi-kmm/maven")
 }

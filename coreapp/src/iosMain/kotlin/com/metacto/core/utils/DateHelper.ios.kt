@@ -2,9 +2,9 @@ package com.metacto.core.utils
 
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.convert
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlinx.datetime.DayOfWeek
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import platform.Foundation.NSCalendar

@@ -5,14 +5,17 @@ on:
     branches:
       - 'develop'
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+permissions:
+  contents: write
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: set up JDK 17
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
+          distribution: temurin
           java-version: 17
       - name: Cache Gradle
         uses: actions/cache@v3
@@ -36,15 +39,24 @@ jobs:
 
       - name: Update local properties
         env:
-          PUBLISH_REPO_USER: ${{ secrets.PUBLISH_REPO_USER }}
-          PUBLISH_REPO_TOKEN: ${{ secrets.PUBLISH_REPO_TOKEN }}
-          PUBLISH_VERSION: 3.0.${{ github.run_number }}
-        run: echo PUBLISH_REPO_USER=$PUBLISH_REPO_USER$'\n'
-          PUBLISH_VERSION=$PUBLISH_VERSION$'\n'
-          PUBLISH_REPO_TOKEN=$PUBLISH_REPO_TOKEN > ./local.properties
+          PUBLISH_VERSION: 4.0.${{ github.run_number }}
+        run: echo PUBLISH_VERSION=$PUBLISH_VERSION > ./local.properties
 
-      - name: Print local.properties content
-        run: cat ./local.properties
-
-      - name: Publish to GitHub Packages
-        run: ./gradlew :coreApp:publishAllPublicationsToGithubRepository
+      - name: Build and publish to the maven branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          ./gradlew :coreapp:publishAllPublicationsToMavenBranchRepository
+          rm -rf "$RUNNER_TEMP/maven" && mkdir -p "$RUNNER_TEMP/maven"
+          if git fetch --depth 1 origin maven; then
+            git --work-tree="$RUNNER_TEMP/maven" checkout origin/maven -- .
+            git reset -q
+          fi
+          cp -R coreapp/build/maven-branch/. "$RUNNER_TEMP/maven/"
+          cd "$RUNNER_TEMP/maven"
+          git init -q
+          git checkout -q --orphan maven
+          git add -A
+          git -c user.name=github-actions -c user.email=actions@github.com commit -q -m "Publish $(cat "$GITHUB_WORKSPACE/local.properties")"
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" maven:maven

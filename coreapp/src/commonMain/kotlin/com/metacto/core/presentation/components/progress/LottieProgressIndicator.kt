@@ -15,9 +15,10 @@ import com.metacto.core.resources.file
 import com.metacto.core.utils.extensions.noRippleClickable
 import com.metacto.core.utils.extensions.rememberLottieComposition
 import com.metacto.coreApp.resources.*
-import io.github.alexzhirkevich.compottie.LottieAnimation
-import io.github.alexzhirkevich.compottie.LottieConstants
+import androidx.compose.foundation.Image
+import io.github.alexzhirkevich.compottie.Compottie
 import io.github.alexzhirkevich.compottie.animateLottieCompositionAsState
+import io.github.alexzhirkevich.compottie.rememberLottiePainter
 
 @Composable
 fun LottieProgressIndicator(
@@ -30,7 +31,7 @@ fun LottieProgressIndicator(
     val composition by rememberLottieComposition(lottieRes)
     val progress = animateLottieCompositionAsState(
         composition = composition,
-        iterations = LottieConstants.IterateForever,
+        iterations = Compottie.IterateForever,
     )
 
     // Prepare clickable modifier
@@ -43,9 +44,12 @@ fun LottieProgressIndicator(
             .fillMaxSize()
             .then(clickableModifier)
     ) {
-        LottieAnimation(
-            composition = composition,
-            progress = { progress.value },
+        Image(
+            painter = rememberLottiePainter(
+                composition = composition,
+                progress = { progress.value }
+            ),
+            contentDescription = null,
             modifier = Modifier.size(progressSize)
         )
     }

@@ -16,7 +16,7 @@ import com.metacto.coreApp.R
 import com.mmk.kmpnotifier.extensions.onCreateOrOnNewIntent
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.PayloadData
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 import android.app.Notification as PlatformNotification

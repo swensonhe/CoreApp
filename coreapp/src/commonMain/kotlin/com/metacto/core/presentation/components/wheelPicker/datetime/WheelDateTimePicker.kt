@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.DpSize
 import com.metacto.core.presentation.components.wheelPicker.SelectorProperties
 import com.metacto.core.presentation.components.wheelPicker.WheelPickerDefaults
 import com.metacto.core.presentation.theme.CoreTheme
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime

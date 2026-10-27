@@ -15,14 +15,13 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
-    packagingOptions.apply {
-        setMerges(
-            setOf(
-                "MR/**",
+    packaging {
+        resources {
+            merges += setOf(
                 "META-INF/services/**",
                 "font/**"
             )
-        )
+        }
     }
 
     defaultConfig {
@@ -81,11 +80,9 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        resValues = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.COMPOSE_ANDROID
-    }
 
     compileOptions {
         sourceCompatibility = Versions.JVM
