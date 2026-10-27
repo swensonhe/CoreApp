@@ -1,6 +1,6 @@
 @file:Suppress("OPT_IN_USAGE")
 
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -16,9 +16,8 @@ plugins {
 }
 
 kotlin {
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
 
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
 
@@ -42,14 +41,14 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // Compose
-                api(Dependencies.Compose.RUNTIME)
-                api(Dependencies.Compose.FOUNDATION)
-                api(Dependencies.Compose.MATERIAL)
-                api(Dependencies.Compose.MATERIAL3)
-                api(Dependencies.Compose.ANIMATION)
-                api(Dependencies.Compose.ANIMATION_GRAPHICS)
-                api(Dependencies.Compose.EXTENDED_ICONS)
-                api(Dependencies.Compose.RESOURCES)
+                api(compose.runtime)
+                api(compose.foundation)
+                api(compose.material)
+                api(compose.material3)
+                api(compose.animation)
+                api(compose.animationGraphics)
+                api(compose.materialIconsExtended)
+                api(compose.components.resources)
 
                 // Voyager
                 api(Dependencies.Voyager.NAVIGATOR)
@@ -89,7 +88,7 @@ kotlin {
             dependsOn(commonMain)
             dependencies {
                 // Compose
-                api(Dependencies.Compose.UI_TOOLING)
+                api(compose.uiTooling)
 
                 // Android X
                 api(Dependencies.AndroidX.ACTIVITY_COMPOSE)
@@ -136,16 +135,14 @@ kotlin {
             }
         }
 
-        val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val iosMain by getting {
             dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                api(Dependencies.Compose.MATERIAL)
+                api(compose.material)
             }
         }
     }
@@ -180,27 +177,29 @@ compose.resources {
     generateResClass = always
 }
 
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) file.inputStream().use { load(it) }
+}
+
 val javadocJar by tasks.registering(Jar::class) {
     archiveClassifier.set("javadoc")
 }
 
 publishing {
     repositories {
-        repositories {
-            maven("https://maven.pkg.github.com/Meta-CTO/CoreApp") {
-                name = "Github"
-                credentials {
-                    username = gradleLocalProperties(rootDir, providers).getProperty("PUBLISH_REPO_USER") as String
-                    password = gradleLocalProperties(rootDir, providers).getProperty("PUBLISH_REPO_TOKEN") as String
-                }
-            }
+        // The release workflow commits this directory to the repository's `maven` branch,
+        // which consumers read over raw.githubusercontent.com without credentials.
+        maven {
+            name = "MavenBranch"
+            url = uri(layout.buildDirectory.dir("maven-branch"))
         }
     }
 
     publications.withType<MavenPublication> {
         artifact(javadocJar)
         groupId = "com.metacto"
-        version = gradleLocalProperties(rootDir, providers).getProperty("PUBLISH_VERSION") as String
+        version = localProperties.getProperty("PUBLISH_VERSION")
 
         pom {
             name.set("coreApp")
@@ -228,7 +227,4 @@ publishing {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }

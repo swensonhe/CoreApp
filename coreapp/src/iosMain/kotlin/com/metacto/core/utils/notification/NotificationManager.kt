@@ -6,7 +6,7 @@ import com.metacto.core.utils.toDateComponents
 import com.mmk.kmpnotifier.extensions.onApplicationDidReceiveRemoteNotification
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.PayloadData
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import platform.Foundation.NSDateComponents
 import platform.UIKit.UIApplication
 import platform.UserNotifications.UNCalendarNotificationTrigger

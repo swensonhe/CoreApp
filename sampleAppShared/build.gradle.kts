@@ -14,9 +14,8 @@ plugins {
 }
 
 kotlin {
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
 
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
 
@@ -102,12 +101,10 @@ kotlin {
             }
         }
 
-        val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val iosMain by getting {
             dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
@@ -117,7 +114,7 @@ kotlin {
 }
 
 android {
-    namespace = Configs.SAMPLE_APP_NAMESPACE
+    namespace = Configs.SAMPLE_APP_SHARED_NAMESPACE
     compileSdk = Configs.COMPILE_SDK_VERSION
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")

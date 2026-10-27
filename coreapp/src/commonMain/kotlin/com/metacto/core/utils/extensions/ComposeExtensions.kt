@@ -488,11 +488,9 @@ fun rememberLottieComposition(res: IFileResource): LottieCompositionResult {
     if (json == null) json = res.readAsState().value
 
     // Then return the composition
-    return io.github.alexzhirkevich.compottie.rememberLottieComposition(
-        LottieCompositionSpec.JsonString(
-            json.orEmpty()
-        )
-    )
+    return io.github.alexzhirkevich.compottie.rememberLottieComposition(json) {
+        LottieCompositionSpec.JsonString(json.orEmpty())
+    }
 }
 
 fun Modifier.borderIf(

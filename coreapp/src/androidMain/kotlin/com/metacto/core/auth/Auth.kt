@@ -73,7 +73,7 @@ actual fun rememberPhoneVerificationProvider(): PhoneVerificationProvider {
             override val timeout: Long = 60
             override val unit: TimeUnit = TimeUnit.SECONDS
 
-            override fun onCodeSent(verificationId: String, triggerResend: () -> Unit) {
+            override fun codeSent(triggerResend: (Unit) -> Unit) {
             }
 
             override suspend fun getVerificationCode(): String {
