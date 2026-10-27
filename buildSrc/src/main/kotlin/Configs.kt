@@ -11,7 +11,4 @@ object Configs {
     val MY_ATLAS_VERSION_CODE by lazy { getGitCommitCount() }
     val MY_ATLAS_VERSION_NAME by lazy { getVersionName() }
     const val IOS_DEPLOYMENT_TARGET = "14.1"
-
-    const val META_CTO_USERNAME = "metactoengineer"
-    const val META_CTO_PASSWORD = "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"
 }

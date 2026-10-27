@@ -13,5 +13,8 @@ fun RepositoryHandler.addProjectRepos() {
 //    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     maven("https://plugins.gradle.org/m2/")
-    maven("https://raw.githubusercontent.com/swensonhe/strapi-kmm/maven")
+    exclusiveContent {
+        forRepositories(maven("https://raw.githubusercontent.com/swensonhe/strapi-kmm/maven"))
+        filter { includeGroup("com.metacto") }
+    }
 }
