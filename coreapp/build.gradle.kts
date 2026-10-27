@@ -41,14 +41,14 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // Compose
-                api(Dependencies.Compose.RUNTIME)
-                api(Dependencies.Compose.FOUNDATION)
-                api(Dependencies.Compose.MATERIAL)
-                api(Dependencies.Compose.MATERIAL3)
-                api(Dependencies.Compose.ANIMATION)
-                api(Dependencies.Compose.ANIMATION_GRAPHICS)
-                api(Dependencies.Compose.EXTENDED_ICONS)
-                api(Dependencies.Compose.RESOURCES)
+                api(compose.runtime)
+                api(compose.foundation)
+                api(compose.material)
+                api(compose.material3)
+                api(compose.animation)
+                api(compose.animationGraphics)
+                api(compose.materialIconsExtended)
+                api(compose.components.resources)
 
                 // Voyager
                 api(Dependencies.Voyager.NAVIGATOR)
@@ -88,7 +88,7 @@ kotlin {
             dependsOn(commonMain)
             dependencies {
                 // Compose
-                api(Dependencies.Compose.UI_TOOLING)
+                api(compose.uiTooling)
 
                 // Android X
                 api(Dependencies.AndroidX.ACTIVITY_COMPOSE)
@@ -142,7 +142,7 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                api(Dependencies.Compose.MATERIAL)
+                api(compose.material)
             }
         }
     }

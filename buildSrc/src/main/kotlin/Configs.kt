@@ -12,10 +12,6 @@ object Configs {
     val MY_ATLAS_VERSION_NAME by lazy { getVersionName() }
     const val IOS_DEPLOYMENT_TARGET = "14.1"
 
-    // TODO: move these values to gradle.properties
-    const val SH_USERNAME = "developer-swensonhe"
-    const val SH_PASSWORD = "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"
-
     const val META_CTO_USERNAME = "metactoengineer"
     const val META_CTO_PASSWORD = "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"
 }
