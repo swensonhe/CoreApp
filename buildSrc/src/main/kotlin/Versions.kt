@@ -31,7 +31,7 @@ object Versions {
     const val EXO_PLAYER = "1.3.1"
     const val GIT_LIVE = "1.10.4"
     const val YOUTUBE_PLAYER = "12.1.0"
-    const val SHIMMER = "1.3.1"
+    const val SHIMMER = "1.5.0"
     const val KMP_NOTIFIER = "1.3.0"
     const val CAMERA_X = "1.5.0"
 }
