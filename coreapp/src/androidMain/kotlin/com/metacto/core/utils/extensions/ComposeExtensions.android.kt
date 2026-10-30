@@ -22,7 +22,7 @@ import io.michaelrocks.libphonenumber.kotlin.MetadataLoader
 import io.michaelrocks.libphonenumber.kotlin.metadata.source.AssetsMetadataLoader
 
 @Composable
-actual fun defaultMetadataLoader(): MetadataLoader {
+internal actual fun defaultMetadataLoader(): MetadataLoader {
     return AssetsMetadataLoader(LocalContext.current.applicationContext.assets)
 }
 

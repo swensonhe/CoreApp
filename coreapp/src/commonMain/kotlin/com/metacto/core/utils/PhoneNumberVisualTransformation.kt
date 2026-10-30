@@ -7,7 +7,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import com.metacto.core.domain.CoreConstants.US_COUNTRY_CODE
 import io.michaelrocks.libphonenumber.kotlin.PhoneNumberUtil
 
-class PhoneNumberVisualTransformation(
+internal class PhoneNumberVisualTransformation(
     phoneNumberUtil: PhoneNumberUtil,
     countryCode: String = US_COUNTRY_CODE
 ) : VisualTransformation {
