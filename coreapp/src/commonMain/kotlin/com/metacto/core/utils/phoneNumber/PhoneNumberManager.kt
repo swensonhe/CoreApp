@@ -3,7 +3,7 @@ package com.metacto.core.utils.phoneNumber
 import io.michaelrocks.libphonenumber.kotlin.PhoneNumberUtil
 import io.michaelrocks.libphonenumber.kotlin.Phonenumber
 
-class PhoneNumberManager(
+internal class PhoneNumberManager(
     private val phoneNumberUtil: PhoneNumberUtil
 ) : IPhoneNumberManager {
 

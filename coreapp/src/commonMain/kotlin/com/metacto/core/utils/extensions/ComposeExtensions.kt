@@ -472,7 +472,7 @@ fun DefaultLaunchedEffect(
 }
 
 @Composable
-fun rememberPhoneNumberUtil(): PhoneNumberUtil {
+internal fun rememberPhoneNumberUtil(): PhoneNumberUtil {
     val metadataLoader = defaultMetadataLoader()
     return remember {
         PhoneNumberUtil.Companion.createInstance(
@@ -758,7 +758,7 @@ fun Modifier.onEdgeSwipe(
 }
 
 @Composable
-expect fun defaultMetadataLoader(): MetadataLoader
+internal expect fun defaultMetadataLoader(): MetadataLoader
 
 @Composable
 expect fun openUrlInBrowser(url: String)

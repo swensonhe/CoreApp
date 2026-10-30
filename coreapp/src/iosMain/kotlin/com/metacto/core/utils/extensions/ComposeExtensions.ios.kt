@@ -27,7 +27,7 @@ import platform.UIKit.UIColor
 import platform.UIKit.UINavigationBar
 
 @Composable
-actual fun defaultMetadataLoader(): MetadataLoader {
+internal actual fun defaultMetadataLoader(): MetadataLoader {
     return ComposeResourceMetadataLoader()
 }
 
