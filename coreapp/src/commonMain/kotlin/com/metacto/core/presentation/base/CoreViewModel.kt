@@ -64,6 +64,8 @@ import org.jetbrains.compose.resources.StringResource
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.coroutines.CoroutineContext
+import kotlin.concurrent.atomics.AtomicBoolean
+import kotlin.concurrent.atomics.ExperimentalAtomicApi
 
 interface ViewEvent
 
@@ -98,6 +100,9 @@ abstract class CoreViewModel<S : ViewState, E : ViewEvent, SF : ViewSideEffect> 
     private val initialState: S by lazy { setInitialState() }
 
     private val _viewState: MutableState<S> = mutableStateOf(initialState)
+
+    @OptIn(ExperimentalAtomicApi::class)
+    private val stateWriteLock = AtomicBoolean(false)
     val viewState: State<S> = _viewState
     val currentState: S get() = viewState.value
 
@@ -124,10 +129,21 @@ abstract class CoreViewModel<S : ViewState, E : ViewEvent, SF : ViewSideEffect> 
         screenModelScope.launch { _event.emit(event) }
     }
 
+    /**
+     * Jobs run on [Dispatchers.Default], so two of them can reduce the same state at once and the
+     * later write would drop the earlier one's change. The lock makes each read-reduce-write whole.
+     */
+    @OptIn(ExperimentalAtomicApi::class)
     protected fun setState(reducer: S.() -> S) {
-        val newState = viewState.value.reducer()
+        while (!stateWriteLock.compareAndSet(expectedValue = false, newValue = true)) {
+            // Spin: a reducer is a data class copy, so the lock is held for microseconds.
+        }
+        val newState = try {
+            viewState.value.reducer().also { _viewState.value = it }
+        } finally {
+            stateWriteLock.store(false)
+        }
         onChangeState(newState)
-        _viewState.value = newState
     }
 
     protected fun setStateLocked(reducer: S.() -> S) {
