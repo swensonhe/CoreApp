@@ -129,15 +129,9 @@ abstract class CoreViewModel<S : ViewState, E : ViewEvent, SF : ViewSideEffect> 
         screenModelScope.launch { _event.emit(event) }
     }
 
-    /**
-     * Jobs run on [Dispatchers.Default], so two of them can reduce the same state at once and the
-     * later write would drop the earlier one's change. The lock makes each read-reduce-write whole.
-     */
     @OptIn(ExperimentalAtomicApi::class)
     protected fun setState(reducer: S.() -> S) {
-        while (!stateWriteLock.compareAndSet(expectedValue = false, newValue = true)) {
-            // Spin: a reducer is a data class copy, so the lock is held for microseconds.
-        }
+        while (!stateWriteLock.compareAndSet(expectedValue = false, newValue = true)) Unit
         val newState = try {
             viewState.value.reducer().also { _viewState.value = it }
         } finally {
