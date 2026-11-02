@@ -12,6 +12,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -76,8 +77,10 @@ fun PrimaryTextInputField(
     focusedBorderThickness: Dp = spacings.primaryTextInputField.focusedBorderThickness,
     unfocusedBorderThickness: Dp = spacings.primaryTextInputField.unfocusedBorderThickness,
     minWidth: Dp = spacings.primaryTextInputField.minWidth,
+    platformImeOptions: PlatformImeOptions? = null,
 ) {
     BaseTextInputField(
+        platformImeOptions = platformImeOptions,
         requestFocus = requestFocus,
         requestFocusDelay = requestFocusDelay,
         text = text,

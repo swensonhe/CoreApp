@@ -45,6 +45,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -120,7 +121,8 @@ fun BaseTextInputField(
     shadowColor: Color,
     elevation: Dp,
     requestFocus: Boolean,
-    requestFocusDelay: Duration = DEFAULT_REQUEST_FOCUS_DELAY
+    requestFocusDelay: Duration = DEFAULT_REQUEST_FOCUS_DELAY,
+    platformImeOptions: PlatformImeOptions? = null
 ) {
     // Prepare isError flag
     val isError = remember(error) {
@@ -349,7 +351,8 @@ fun BaseTextInputField(
                     keyboardOptions = KeyboardOptions(
                         keyboardType = keyboardType,
                         imeAction = imeAction,
-                        capitalization = capitalization
+                        capitalization = capitalization,
+                        platformImeOptions = platformImeOptions
                     ),
                     interactionSource = interactionSource,
                     singleLine = singleLine,

@@ -19,6 +19,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -82,6 +83,7 @@ fun PasswordTextInputField(
     focusedBorderThickness: Dp = spacings.passwordTextInputField.focusedBorderThickness,
     unfocusedBorderThickness: Dp = spacings.passwordTextInputField.unfocusedBorderThickness,
     minWidth: Dp = spacings.passwordTextInputField.minWidth,
+    platformImeOptions: PlatformImeOptions? = null,
 ) {
     var isPasswordVisible by remember {
         mutableStateOf(false)
@@ -108,6 +110,7 @@ fun PasswordTextInputField(
     }
 
     BaseTextInputField(
+        platformImeOptions = platformImeOptions,
         requestFocus = requestFocus,
         requestFocusDelay = requestFocusDelay,
         text = text,
